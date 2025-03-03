@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Verify Your Email - Customer Orders Tracker</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <h1>Email Verification Required</h1>
+        <p>Please verify your email address to activate your account.</p>
+    </header>
+
+    <!-- Main -->
+    <div id="main">
+
+        <!-- Content -->
+        <section id="content" class="main">
+            <p>We've sent a verification email to the address you provided. Please check your inbox (and spam folder) for the email and click on the verification link to activate your account.</p>
+            <p>Once verified, you can <a href="login.html">log in here</a>.</p>
+            <p>If you didn’t receive the email, click the button below to resend it:</p>
+            <button id="resendVerification" class="button primary">Resend Verification Email</button>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <section>
+            <h2>Need Help?</h2>
+            <p>If you need assistance, please <a href="feedback.html">contact us</a>.</p>
+        </section>
+    </footer>
+
+</div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"></script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getAuth, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+    // Your Firebase configuration
+    const firebaseConfig = {
+        apiKey: "x",
+        authDomain: "x",
+        projectId: "x",
+        storageBucket: "x",
+        messagingSenderId: "x",
+        appId: "x",
+        measurementId: "x"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Resend Verification Email
+    document.getElementById('resendVerification').addEventListener('click', async () => {
+        const user = auth.currentUser;
+        if (user) {
+            try {
+                await sendEmailVerification(user);
+                alert('Verification email resent successfully! Please check your inbox.');
+            } catch (error) {
+                console.error("Error resending verification email:", error);
+                alert('Error: ' + error.message);
+            }
+        } else {
+            alert('No user is currently logged in.');
+        }
+    });
+</script>
+
+</body>
+</html>

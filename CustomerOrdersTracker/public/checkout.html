@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Checkout - Customer Orders Tracker</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .form-container input,
+        .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-container button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header" class="alt">
+        <span class="logo"><img src="images/GMlogo.png" alt="Customer Orders Tracker Logo" /></span>
+        <h1>Checkout</h1>
+        <p>Complete your purchase and unlock premium features.</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav id="nav">
+        <ul id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="subscription.html">Subscriptions</a></li>
+            <li><a href="premium.html">Premium</a></li>
+            <li><a href="feedback.html">Feedback</a></li>
+            <li><a href="generic.html">Learn More</a></li>
+            <li id="auth-link"><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <div id="main">
+        <section id="checkout-section" class="main special">
+            <header class="major">
+                <h2>Checkout</h2>
+                <p>Secure payment and confirmation in just a few steps.</p>
+            </header>
+            <div class="form-container">
+                <form id="checkoutForm">
+                    <label for="plan">Select Plan</label>
+                    <select id="plan" name="plan" required>
+                        <option value="basic-plan">Basic Plan - $5.99/month</option>
+                        <option value="plus-plan">Plus Plan - $9.99/month</option>
+                        <option value="premium">Premium Version - $99.99 (one-time)</option>
+                    </select>
+
+                    <label for="name">Name on Card</label>
+                    <input type="text" id="name" name="name" placeholder="John Doe" required />
+
+                    <label for="card">Card Number</label>
+                    <input type="text" id="card" name="card" placeholder="1234 5678 9012 3456" required />
+
+                    <label for="expiry">Expiry Date</label>
+                    <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required />
+
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" name="cvv" placeholder="123" required />
+
+                    <button type="submit">Complete Purchase</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <section>
+            <h2>Get in Touch</h2>
+            <p>If you have any questions or need support, feel free to contact us.</p>
+            <p>Email: notarealemail@gmail.com<br>Phone: (000)000-0000</p>
+        </section>
+        <section>
+            <h2>Follow Us</h2>
+            <ul class="icons">
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="icon brands fa-twitter alt" target="_blank"><span class="label">Twitter</span></a></li>
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="icon brands fa-facebook-f alt" target="_blank"><span class="label">Facebook</span></a></li>
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="icon brands fa-instagram alt" target="_blank"><span class="label">Instagram</span></a></li>
+            </ul>
+        </section>
+        <p class="copyright">&copy; Customer Orders Tracker. Design inspired by <a href="https://html5up.net">HTML5 UP</a>.</p>
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"></script>
+
+<script>
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCzNnoI00q2Lu66FZisLhjSTcdHu9e1G2c",
+        authDomain: "forestvieworder.firebaseapp.com",
+        projectId: "forestvieworder",
+        storageBucket: "forestvieworder.firebasestorage.app",
+        messagingSenderId: "730416852804",
+        appId: "1:730416852804:web:e8f24a1fe50acb46cf3111",
+        measurementId: "G-DF7R97DC0N"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Simulate successful purchase and redirect to confirmation page
+    document.getElementById("checkoutForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const selectedPlan = document.getElementById("plan").value;
+        alert(`You have successfully purchased the ${selectedPlan} plan!`);
+        window.location.href = "confirmation.html";
+    });
+</script>
+
+</body>
+</html>

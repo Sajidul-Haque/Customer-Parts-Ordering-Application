@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Feedback - Customer Orders Tracker</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <h1>Feedback</h1>
+        <p>We value your feedback. Please let us know your thoughts about Customer Orders Tracker</p>
+        <div id="logout" style="display: none;">
+            <button onclick="logout()" class="button">Logout</button>
+        </div>
+    </header>
+
+    <!-- Nav -->
+    <nav id="nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="subscription.html">Subscriptions</a></li>
+            <li><a href="premium.html">Premium</a></li>
+            <li><a href="generic.html">Learn More</a></li>
+            <li><a href="feedback.html" class="active">Feedback</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <div id="main">
+
+        <!-- Feedback Form -->
+        <section id="content" class="main">
+            <form id="feedbackForm">
+                <div class="row gtr-uniform">
+                    <div class="col-6 col-12-xsmall">
+                        <input type="text" name="name" id="name" value="" placeholder="Name" required />
+                    </div>
+                    <div class="col-6 col-12-xsmall">
+                        <input type="email" name="email" id="email" value="" placeholder="Email" required />
+                    </div>
+                    <div class="col-12">
+                        <textarea name="feedback" id="feedback" placeholder="Enter your feedback" rows="6" required></textarea>
+                    </div>
+                    <div class="col-12">
+                        <ul class="actions">
+                            <li><input type="submit" value="Submit Feedback" class="primary" /></li>
+                            <li><input type="reset" value="Reset" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <section>
+            <h2>Get in Touch</h2>
+            <p>If you have any questions or need support, feel free to contact us.</p>
+            <p>Email: notarealemail@gmail.com<br>Number: (000)000-0000</p>
+        </section>
+        <section>
+            <h2>Stay Connected</h2>
+            <ul class="icons">
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="icon brands fa-twitter alt" target="_blank"><span class="label">Twitter</span></a></li>
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="icon brands fa-facebook-f alt" target="_blank"><span class="label">Facebook</span></a></li>
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="icon brands fa-instagram alt" target="_blank"><span class="label">Instagram</span></a></li>
+            </ul>
+        </section>
+        <p class="copyright">&copy; Customer Orders Tracker. Design inspired by <a href="https://html5up.net">HTML5 UP</a>.</p>
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+
+<!-- Firebase SDKs -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    import { getDatabase, ref, push, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCzNnoI00q2Lu66FZisLhjSTcdHu9e1G2c",
+        authDomain: "forestvieworder.firebaseapp.com",
+        databaseURL: "https://forestvieworder-default-rtdb.firebaseio.com",
+        projectId: "forestvieworder",
+        storageBucket: "forestvieworder.firebasestorage.app",
+        messagingSenderId: "730416852804",
+        appId: "1:730416852804:web:e8f24a1fe50acb46cf3111",
+        measurementId: "G-DF7R97DC0N"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const database = getDatabase(app);
+
+    function logout() {
+        signOut(auth).then(() => {
+            localStorage.removeItem("user");
+            window.location.href = 'index.html';
+        }).catch((error) => {
+            console.error("Error during logout:", error);
+            alert('Error: ' + error.message);
+        });
+    }
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            document.getElementById('logout').style.display = 'block';
+        } else {
+            document.getElementById('logout').style.display = 'none';
+        }
+    });
+
+    document.getElementById('feedbackForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const feedback = document.getElementById('feedback').value;
+
+        try {
+            await push(ref(database, 'feedbacks'), {
+                name: name,
+                email: email,
+                feedback: feedback,
+                timestamp: serverTimestamp()
+            });
+            alert('Thank you for your feedback!');
+            document.getElementById('feedbackForm').reset();
+        } catch (error) {
+            console.error("Error while submitting feedback:", error);
+            alert('Error: ' + error.message);
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Login - Customer Orders Tracker</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <h1>Login</h1>
+        <p>Access your Customer Orders Tracker account</p>
+    </header>
+
+    <!-- Main -->
+    <div id="main">
+
+        <!-- Login Form -->
+        <section id="content" class="main">
+            <form id="loginForm">
+                <div class="row gtr-uniform">
+                    <div class="col-12">
+                        <input type="email" name="email" id="email" value="" placeholder="Email" required />
+                    </div>
+                    <div class="col-12">
+                        <input type="password" name="password" id="password" value="" placeholder="Password" required />
+                    </div>
+                    <div class="col-12">
+                        <ul class="actions">
+                            <li><input type="submit" value="Login" class="primary" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+            <p>Don't have an account? <a href="signup.html">Sign up here</a>.</p>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <section>
+            <h2>Get in Touch</h2>
+            <p>If you have any questions or need support, feel free to contact us.</p>
+            <ul class="actions">
+                <li><a href="feedback.html" class="button">Contact Us</a></li>
+            </ul>
+        </section>
+    </footer>
+
+</div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js"></script>
+
+<script type="module">
+    // Import necessary Firebase functions
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCzNnoI00q2Lu66FZisLhjSTcdHu9e1G2c",
+        authDomain: "forestvieworder.firebaseapp.com",
+        projectId: "forestvieworder",
+        storageBucket: "forestvieworder.firebasestorage.app",
+        messagingSenderId: "730416852804",
+        appId: "1:730416852804:web:e8f24a1fe50acb46cf3111",
+        measurementId: "G-DF7R97DC0N"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+
+    // Add login form submit listener
+    document.getElementById('loginForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            // Sign in user with email and password
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // Store user info in local storage to manage authentication state
+            localStorage.setItem("user", JSON.stringify(user));
+
+            // Redirect to download page
+            window.location.href = 'download.html';
+        } catch (error) {
+            console.error("Error during login:", error);
+            alert('Error: ' + error.message);
+        }
+    });
+</script>
+
+</body>
+</html>

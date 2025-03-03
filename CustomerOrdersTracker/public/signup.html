@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Sign Up - Customer Orders Tracker</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <h1>Sign Up</h1>
+        <p>Create your Customer Orders Tracker account</p>
+    </header>
+
+    <!-- Main -->
+    <div id="main">
+
+        <!-- Signup Form -->
+        <section id="content" class="main">
+            <form id="signupForm">
+                <div class="row gtr-uniform">
+                    <div class="col-6 col-12-xsmall">
+                        <input type="text" name="first-name" id="first-name" value="" placeholder="First Name" required />
+                    </div>
+                    <div class="col-6 col-12-xsmall">
+                        <input type="text" name="last-name" id="last-name" value="" placeholder="Last Name" required />
+                    </div>
+                    <div class="col-12">
+                        <input type="email" name="email" id="email" value="" placeholder="Email" required />
+                    </div>
+                    <div class="col-12">
+                        <input type="password" name="password" id="password" value="" placeholder="Password" required />
+                    </div>
+                    <div class="col-12">
+                        <ul class="actions">
+                            <li><input type="submit" value="Sign Up" class="primary" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+            <p>Already have an account? <a href="login.html">Login here</a>.</p>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <section>
+            <h2>Get in Touch</h2>
+            <p>If you have any questions or need support, feel free to contact us.</p>
+            <ul class="actions">
+                <li><a href="feedback.html" class="button">Contact Us</a></li>
+            </ul>
+        </section>
+    </footer>
+
+</div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"></script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+    // Your Firebase configuration
+    const firebaseConfig = {
+        apiKey: "x",
+        authDomain: "x",
+        projectId: "x",
+        storageBucket: "x",
+        messagingSenderId: "x",
+        appId: "x",
+        measurementId: "x"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const database = getDatabase(app);
+
+    // Handle Sign-Up Form Submission
+    document.getElementById('signupForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const firstName = document.getElementById('first-name').value;
+        const lastName = document.getElementById('last-name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            // Create user with email and password
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // Save additional user information to the database
+            await set(ref(database, 'users/' + user.uid), {
+                firstName: firstName,
+                lastName: lastName,
+                email: email
+            });
+
+            // Send email verification
+            await sendEmailVerification(user);
+            alert('Sign-up successful! Please check your email to verify your account.');
+
+            // Redirect to a page with instructions after email verification
+            window.location.href = 'verify-email.html';
+        } catch (error) {
+            console.error("Error during sign-up:", error);
+            alert('Error: ' + error.message);
+        }
+    });
+</script>
+
+</body>
+</html>

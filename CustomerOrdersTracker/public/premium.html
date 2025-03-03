@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Premium Version - Customer Orders Tracker</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>
+        ul.features-list {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        ul.features-list li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header" class="alt">
+        <span class="logo"><img src="images/GMlogo.png" alt="Customer Orders Tracker Logo" /></span>
+        <h1>Premium Version</h1>
+        <p>Upgrade to the premium version for exclusive features.</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav id="nav">
+        <ul id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="generic.html">Learn More</a></li>
+            <li><a href="subscription.html">Subscriptions</a></li>
+            <li><a href="#premium-info" class="active">Premium</a></li>
+            <li><a href="feedback.html">Feedback</a></li>
+            <li id="auth-link"><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <div id="main">
+
+        <!-- Premium Info Section -->
+        <section id="premium-info" class="main special">
+            <header class="major">
+                <h2>Why Choose Premium?</h2>
+            </header>
+            <div class="content">
+                <p><strong>Price:</strong> $99.99</p>
+                <ul class="features-list">
+                    <li>Customizable reports for deeper insights</li>
+                    <li>Advanced analytics to enhance decision-making</li>
+                    <li>Priority customer support for faster resolutions</li>
+                    <li>Enhanced user experience with exclusive features</li>
+                </ul>
+                <a href="checkout.html?plan=premium-software" class="button primary" style="margin-top: 20px;">Buy Premium</a>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <section>
+            <h2>Get in Touch</h2>
+            <p>If you have any questions or need support, feel free to contact us.</p>
+            <p>Email: notarealemail@gmail.com<br>Phone: (000)000-0000</p>
+        </section>
+        <section>
+            <h2>Follow Us</h2>
+            <ul class="icons">
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="icon brands fa-twitter alt" target="_blank"><span class="label">Twitter</span></a></li>
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="icon brands fa-facebook-f alt" target="_blank"><span class="label">Facebook</span></a></li>
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="icon brands fa-instagram alt" target="_blank"><span class="label">Instagram</span></a></li>
+            </ul>
+        </section>
+        <p class="copyright">&copy; Customer Orders Tracker. Design inspired by <a href="https://html5up.net">HTML5 UP</a>.</p>
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"></script>
+
+<script>
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCzNnoI00q2Lu66FZisLhjSTcdHu9e1G2c",
+        authDomain: "forestvieworder.firebaseapp.com",
+        projectId: "forestvieworder",
+        storageBucket: "forestvieworder.firebasestorage.app",
+        messagingSenderId: "730416852804",
+        appId: "1:730416852804:web:e8f24a1fe50acb46cf3111",
+        measurementId: "G-DF7R97DC0N"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Logout function
+    function logout() {
+        auth.signOut().then(() => {
+            localStorage.removeItem("user");
+            window.location.href = 'index.html';
+        }).catch((error) => {
+            console.error("Error during logout:", error);
+            alert('Error: ' + error.message);
+        });
+    }
+
+    // Show login or logout button based on auth state
+    document.addEventListener("DOMContentLoaded", function () {
+        auth.onAuthStateChanged((user) => {
+            const authLink = document.getElementById('auth-link');
+            if (user) {
+                authLink.innerHTML = '<a href="#" onclick="logout()">Logout</a>';
+            } else {
+                authLink.innerHTML = '<a href="login.html">Login</a>';
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

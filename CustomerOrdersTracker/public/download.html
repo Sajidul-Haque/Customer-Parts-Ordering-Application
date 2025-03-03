@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Download - Customer Orders Tracker</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <h1>Download Customer Orders Tracker</h1>
+        <p>Manage and track your orders efficiently with our software</p>
+        <div id="logout" style="display: none;">
+            <button onclick="logout()" class="button">Logout</button>
+        </div>
+    </header>
+
+    <!-- Nav -->
+    <nav id="nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="subscription.html">Subscriptions</a></li>
+            <li><a href="premium.html">Premium</a></li>
+            <li><a href="generic.html">Learn More</a></li>
+            <li><a href="feedback.html">Feedback</a></li>
+            <li><a href="#download-section" class="active">Download Now</a></li>
+            <li><a href="#instructions">How to Use</a></li>
+            <li id="auth-link"><a href="login.html">Log Out</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <div id="main">
+
+        <!-- Download Section -->
+        <section id="download-section" class="main">
+            <!-- Filler Image -->
+            <span class="image main"><img src="images/Download.png" alt="Download Customer Orders Tracker" /></span>
+
+            <h2>Download the Software</h2>
+            <p>Click the button below to download the latest version of Customer Orders Tracker.</p>
+            <ul class="actions">
+                <li><a href="assets/downloads/CustomerOrdersTracker.zip" class="button primary">Download Now</a></li>
+            </ul>
+            <p>If you encounter any issues with downloading or Windows Security, please refer to the <a href="generic.html">Learn More</a> page.</p>
+        </section>
+
+        <!-- Instructions Section -->
+        <section id="instructions" class="main">
+            <h3>How to Use the Software</h3>
+            <ol>
+                <li>After downloading, locate the ZIP file in your Downloads folder.</li>
+                <li>Right-click on the file and select "Extract All" to extract the contents.</li>
+                <li>Open the extracted folder.</li>
+                <li>Double-click on the program file to run the application (no installation required).</li>
+            </ol>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <section>
+            <h2>Get in Touch</h2>
+            <p>If you have any questions or need support, feel free to contact us.</p>
+            <p>Email: notarealemail@gmail.com<br>Number: (000)000-0000</p>
+        </section>
+        <section>
+            <h2>Follow Us</h2>
+            <ul class="icons">
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="icon brands fa-twitter alt" target="_blank"><span class="label">Twitter</span></a></li>
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="icon brands fa-facebook-f alt" target="_blank"><span class="label">Facebook</span></a></li>
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="icon brands fa-instagram alt" target="_blank"><span class="label">Instagram</span></a></li>
+            </ul>
+        </section>
+        <p class="copyright">&copy; Customer Orders Tracker. Design inspired by <a href="https://html5up.net">HTML5 UP</a>.</p>
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"></script>
+
+<script>
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCzNnoI00q2Lu66FZisLhjSTcdHu9e1G2c",
+        authDomain: "forestvieworder.firebaseapp.com",
+        projectId: "forestvieworder",
+        storageBucket: "forestvieworder.firebasestorage.app",
+        messagingSenderId: "730416852804",
+        appId: "1:730416852804:web:e8f24a1fe50acb46cf3111",
+        measurementId: "G-DF7R97DC0N"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Logout function
+    function logout() {
+        auth.signOut().then(() => {
+            localStorage.removeItem("user");
+            window.location.href = 'index.html';
+        }).catch((error) => {
+            console.error("Error during logout:", error);
+            alert('Error: ' + error.message);
+        });
+    }
+
+    // Show login or logout button based on auth state
+    document.addEventListener("DOMContentLoaded", function() {
+        auth.onAuthStateChanged((user) => {
+            const authLink = document.getElementById('auth-link');
+            if (user) {
+                // User is logged in, show logout button
+                document.getElementById('logout').style.display = 'block';
+                authLink.innerHTML = '<a href="#" onclick="logout()">Logout</a>';
+            } else {
+                // No user is logged in, show login link
+                authLink.innerHTML = '<a href="login.html">Login</a>';
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

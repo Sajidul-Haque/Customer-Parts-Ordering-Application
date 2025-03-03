@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Confirmation - Customer Orders Tracker</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>
+        .confirmation-container {
+            max-width: 700px;
+            margin: auto;
+            text-align: center;
+            padding: 30px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .confirmation-container h2 {
+            font-size: 2em;
+            color: #28a745;
+        }
+        .confirmation-container p {
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+        .confirmation-container a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .confirmation-container a:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header" class="alt">
+        <span class="logo"><img src="images/GMlogo.png" alt="Customer Orders Tracker Logo" /></span>
+        <h1>Confirmation</h1>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav id="nav">
+        <ul id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="subscription.html">Subscriptions</a></li>
+            <li><a href="premium.html">Premium</a></li>
+            <li><a href="feedback.html">Feedback</a></li>
+            <li id="auth-link"><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <div id="main">
+        <section id="confirmation-section" class="main special">
+            <div class="confirmation-container">
+                <h2>Thank You for Your Purchase!</h2>
+                <p>Your subscription or premium version purchase has been successfully processed.</p>
+                <p>We hope you enjoy the exclusive features and benefits of the <strong id="selected-plan">selected plan</strong>.</p>
+                <p>If you have any issues or questions, feel free to <a href="feedback.html">contact us</a>.</p>
+                <a href="index.html" class="button">Return to Home</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <section>
+            <h2>Get in Touch</h2>
+            <p>If you have any questions or need support, feel free to contact us.</p>
+            <p>Email: notarealemail@gmail.com<br>Phone: (000)000-0000</p>
+        </section>
+        <section>
+            <h2>Follow Us</h2>
+            <ul class="icons">
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="icon brands fa-twitter alt" target="_blank"><span class="label">Twitter</span></a></li>
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="icon brands fa-facebook-f alt" target="_blank"><span class="label">Facebook</span></a></li>
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="icon brands fa-instagram alt" target="_blank"><span class="label">Instagram</span></a></li>
+            </ul>
+        </section>
+        <p class="copyright">&copy; Customer Orders Tracker. Design inspired by <a href="https://html5up.net">HTML5 UP</a>.</p>
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+    // Dynamically display the selected plan
+    document.addEventListener("DOMContentLoaded", function () {
+        const params = new URLSearchParams(window.location.search);
+        const selectedPlan = params.get("plan") || "your selected plan";
+        document.getElementById("selected-plan").textContent = selectedPlan;
+    });
+</script>
+
+</body>
+</html>
